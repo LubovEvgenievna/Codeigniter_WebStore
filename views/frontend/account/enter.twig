@@ -1,0 +1,48 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+
+    <div class="container">
+    <div class="list_of_hits">
+        <div class="content_bg"></div>
+    <H1>Вход в личный кабинет</H1>
+    <div class="content-line"></div>
+
+    {% for errors in errors %}
+        <div class="errors_div">
+        <p>{{ errors }}</p>
+        </div>
+    {% endfor %}
+
+    {% if message %}
+        <div class="errors_div">
+        {{ message }}
+        </div>
+
+        <div class="cart_btn_order">
+                <a href="registration/reactivate">Активировать</a>
+        </div>
+    {% endif %}
+
+    <div class="ref_form_div">
+        <form action="account" method="post">
+            <p>
+                <label for="login">E-mail</label>
+                <input type="text" name="login" id="login" placeholder="E-mail" class="form-control">
+            </p>
+            <p>
+                <label for="password">Пароль</label>
+                <input type="password" name="password" id="password" placeholder="Пароль" class="form-control">
+            </p>
+            <p>
+                <label for="remember" class="form_text"><a href="{{ base_url }}passrec/passrec">Забыли пароль?</a></label>
+            </p>
+            <div class="btn_enter">
+                <input type="submit" name="submit" value="Войти" class="btn product-btn">
+            </div>
+        </form>
+    </div>
+</div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "frontend/account/account_base.twig" %}
+
+{% block accontent %}
+
+    <p>Изменение пароля</p>
+
+    {% for errors in errors %}
+        <div class="errors_div">
+        <p>{{ errors }}</p>
+        </div>
+    {% endfor %}
+
+    <div class="ref_form_div">
+        <form action="#" method="post">
+            <p>
+                <label>Пароль:</label>
+                <input type="password" name="password" value="{{ users_data.password }}" class="form-control"/>
+            </p>
+            <p>
+                <label>Подтверждение пароля:</label>
+                <input type="password" name="conf_password" value="{{ users_data.conf_password }}" class="form-control"/>
+            </p>
+            <p class="form_btn">
+                <input type="submit" name="submit" value="Изменить пароль" class="btn product-btn"/>
+            </p>
+        </form>
+    </div>
+
+{% endblock %}

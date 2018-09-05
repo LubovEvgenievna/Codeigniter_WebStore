@@ -1,0 +1,38 @@
+{% include "backend/_parts/header.twig" %}
+<body>
+<div class="wrapper">
+
+    <div class="container">
+        <div class="list_of_hits">
+            <div class="content_bg"></div>
+        <H1>Админпанель</H1>
+        <div class="content-line"></div>
+
+        <div class="admin_menu col-xs-12 col-sm-12 col-md-12">
+            <div class="admin_menu_block">
+                <a href="{{ base_url }}adminproducts/prod" class=" acc_menu_btn menu2-btn btn">Управление товарами</a>
+            </div>
+            <div>
+                <a href="{{ base_url }}admincategory" class=" acc_menu_btn menu2-btn btn">Управление категориями</a>
+            </div>
+            <div>
+                <a href="{{ base_url }}adminorders/ord" class=" acc_menu_btn menu2-btn btn">Управление заказами</a>
+            </div>
+            <div>
+                <a href="{{ base_url }}adminpages" class=" acc_menu_btn menu2-btn btn">Редактор</a>
+            </div>
+            <div>
+                <a href="{{ base_url }}admin_panel/logof" class=" acc_menu_btn menu2-btn btn">Выход</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            {% block content %}{% endblock %}
+        </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+{% include "backend/_parts/footer.twig" %}
+</body>
+</html>

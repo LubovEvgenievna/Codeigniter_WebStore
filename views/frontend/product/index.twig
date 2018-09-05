@@ -1,0 +1,35 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+    <div class="container">
+    <div class="add_message" id="add_message">Товар добавлен в корзину</div>
+        <div class="list_of_hits">
+            <div class="content_bg"></div>
+        <H1>Каталог</H1>
+        <div class="content-line"></div>
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="product_about_img_on">
+                       <img src="{{ base_url }}assets/images/product/{{ product.image }}" class="product_about_img">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-9">
+                    <div class="product_about">
+                        <div class="product_about_title">
+                            <p>{{ product.title }}</p>
+                        </div>
+                        <div class="product_about_desc">
+                            <p>{{ product.description }}</p>
+                        </div>
+                        <div class="product_about_price">
+                            <p>{{ product.price }} руб.</p>
+                        </div>
+                        <button type="button" class="product-btn btn"  onClick="add_to_cart({{ product.id }})">
+                                В корзину
+                        </button>
+                    </div>
+                </div>
+            <div class="clear"></div>
+        </div>
+        </div>
+    </div>
+{%  endblock %}

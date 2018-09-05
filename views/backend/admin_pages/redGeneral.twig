@@ -1,0 +1,37 @@
+{% extends "backend/admin_base.twig" %}
+
+{% block content %}
+
+    <p>Главная</p><br />
+
+    {% if errors %}
+        <div class="errors_div">
+            <p>{{ errors }}</p>
+        </div>
+    {% endif %}
+
+
+    {% for sliders in sliders %}
+        <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value='{{  sliders.id  }}' class="form-control"/>
+        <input type="hidden" name="img" value='{{  sliders.img  }}' class="form-control"/>
+
+        <div class="form_admin_general form-group">
+            <p class="clearfix">
+                <label>Изображение {{ sliders.id }}:</label>
+                <input type="file" name="image" multiple="true"  class="form-control"/>
+            </p>
+        </div>
+
+        <div class="admin_general_img">
+            <img id="img-preview" src="{{ base_url }}assets/images/slider/{{ sliders.img }}" class="admin_prod_img_inside">
+        </div>
+        <br />
+        <input type="submit" name="submit" value="Обновить" />
+        <br />
+        </form>
+    {% endfor %}
+
+
+
+{% endblock %}

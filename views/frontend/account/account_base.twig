@@ -1,0 +1,24 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+
+    <div class="container">
+    <div class="list_of_hits">
+        <div class="content_bg"></div>
+        <H1>Личный кабинет</H1>
+        <div class="content-line"></div>
+
+        <div class="menu2 account_menu col-xs-12 col-sm-6 col-md-3">
+            <a href="{{ base_url }}account/accountorders" class="acc_menu_btn menu2-btn btn btn-block">Мои заказы</a>
+            <a href="{{ base_url }}account/accountred" class="acc_menu_btn menu2-btn btn btn-block">Редактирование данных</a>
+            <a href="{{ base_url }}account/accountpassred" class="acc_menu_btn menu2-btn btn btn-block">Изменить пароль</a>
+            <a href="{{ base_url }}account/logof" class="acc_menu_btn menu2-btn btn btn-block">Выход</a>
+            <div class="clear"></div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-9">
+            {% block accontent %}{% endblock %}
+        </div>
+        <div class="clear"></div>
+</div>
+    </div>
+{%  endblock %}

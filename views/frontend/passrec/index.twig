@@ -1,0 +1,29 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+
+    <div class="container">
+
+        <H1>Восстановление пароля</H1>
+        <div class="content-line"></div>
+
+            {% for errors in errors %}
+            <div class="errors_div">
+                <p>{{ errors }}</p>
+            </div>
+            {% endfor %}
+
+        <div class="ref_form_div">
+            <form action="passrec" method="post">
+                <p>
+                    <label for="email">E-mail</label>
+                    <input type="text" name="email" id="email" placeholder="E-mail" class="form-control">
+                </p>
+                <p>
+                    <input type="submit" name="submit" value="Восстановить" class="btn product-btn">
+                </p>
+            </form>
+
+        </div>
+    </div>
+{%  endblock %}

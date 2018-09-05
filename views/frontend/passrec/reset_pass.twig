@@ -1,0 +1,40 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+
+    <div class="container">
+
+        <H1>Восстановление пароля</H1>
+        <div class="content-line"></div>
+
+        {% for errors in errors %}
+             <div class="errors_div">
+            <p>{{ errors }}</p>
+            </div>
+        {% endfor %}
+
+        {% if enter %}
+            <div class="cart_btn_order">
+                <a href="{{ base_url }}account">Войти в личный кабинет</a>
+            </div>
+        {% endif %}
+
+        <div class="ref_form_div">
+            <form action="#" method="post">
+                <div class="form_av">
+                    <p>
+                        <label>Пароль:</label><br />
+                        <input type="password" name="password" class="form-control"/>
+                    </p>
+                    <label>Подтверждение пароля:</label><br />
+                        <input type="password" name="conf_password" class="form-control"/>
+                    </p>
+                    <p>
+                        <input type="submit" name="submit" value="ОК"  class="btn product-btn"/>
+                    </p>
+                </div>
+            </form>
+
+        </div>
+    </div>
+{%  endblock %}

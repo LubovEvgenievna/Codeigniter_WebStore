@@ -1,0 +1,46 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+
+    <div class="container">
+    <div class="list_of_hits">
+        <div class="content_bg"></div>
+        <H1>Регистрация</H1>
+        <div class="content-line"></div>
+
+        {% for errors in errors %}
+             <div class="errors_div">
+            <p>{{ errors }}</p>
+            </div>
+        {% endfor %}
+
+        <div class="ref_form_div">
+            <form action="#" method="post">
+                <p>
+                    <label>Фамилия:</label><br />
+                    <input type="text" name="lastname" value="{{ users_data.lastname }}" class="form-control"/>
+                </p>
+                <p>
+                    <label>Имя:</label><br />
+                    <input type="text" name="name" value="{{ users_data.name }}" class="form-control"/>
+                </p>
+                <p>
+                    <label>E-mail:</label><br />
+                    <input type="text" name="email" value="{{ users_data.email }}" class="form-control"/>
+                </p>
+                <p>
+                    <label>Пароль:</label><br />
+                    <input type="password" name="password" value="{{ users_data.password }}" class="form-control"/>
+                </p>
+                <p>
+                    <label>Подтверждение пароля:</label><br />
+                    <input type="password" name="conf_password" value="{{ users_data.conf_password }}" class="form-control"/>
+                </p>
+                <p class="form_btn">
+                    <input type="submit" name="submit" value="Зарегистрироваться" class="btn product-btn"/>
+                </p>
+            </form>
+        </div>
+    </div>
+    </div>
+{%  endblock %}

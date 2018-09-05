@@ -1,0 +1,96 @@
+{% extends "frontend/base.twig" %}
+{%  block content %}
+    <div class="container">
+    <div class="list_of_hits">
+        <div class="content_bg"></div>
+        <H1>Оформление заказа</H1>
+        <div class="content-line"></div>
+        <p>В Вашей корзине {{ total_items }} товаров на сумму {{ total }} рублей.</p>
+
+        {% for errors in errors %}
+            <div class="errors_div">
+            <p>{{ errors }}</p>
+            </div>
+        {% endfor %}
+
+        {{ order_form | raw }}
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <div class="ref_form_div">
+                    <label class="radio">
+                        <p class="order_radio_btn">
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked onclick="order_radio_form()">
+                        Самовывоз
+
+                        </p>
+                    <form action="startorder" method="post">
+                        <label>Выберите магазин, откуда Вам будет удобнее забрать заказ:
+                        </label><br />
+                        <select name="shop" class="form-control">
+                            {%  for shop in shop %}
+                                <option value="{{ shop.id }}">{{ shop.title }}</option>
+                            {% endfor %}
+                        </select>
+                        <p>
+                            <label>Ваш номер телефона:</label><br />
+                            <input  name="phone" value="{{ users_data.phone }}" class="form-control order1_form"/>
+                        </p>
+                        <p>
+                            <label>Коментарии к заказу:</label><br />
+                    <textarea type="text" name="comment" value="{{ users_data.comment }}" class="text_order form-control order1_form">
+                    </textarea>
+                        </p>
+                        <p class="capcha_form1">
+                        </p>
+                        <p class="form_btn">
+                            <input type="submit" name="submit" value="Заказать" class="btn product-btn order1_form"/>
+                        </p>
+                    </form>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 right_order">
+                <div class="ref_form_div">
+                    <label class="radio">
+                        <p class="order_radio_btn">
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" onclick="order_radio_form()">
+                            Доставка
+                        </p>
+                    <form action="startorder" method="post">
+                        <p class="order_form_p">Стоимость 350 руб.<br /> При заказе от 1290 руб. доставка БЕСПЛАТНО!!!</p>
+                        {% if total < 1290 %}
+                            <p>
+                            ИТОГО: {{ total + 350 }} руб.<br />
+                            </p>
+                        {% else %}
+                            <p>
+                                ИТОГО: {{ total }} руб.<br />
+                            </p>
+                        {% endif %}
+                        <p>
+                            <label>Ваш адрес:</label><br />
+                            <input name="address" value="{{ users_data.address }}" class="form-control order2_form" disabled/>
+                        </p>
+                        <p>
+                            <label>Ваш номер телефона:</label><br />
+                            <input name="phone" value="{{ users_data.phone }}" class="form-control order2_form" disabled/>
+                        </p>
+                        <p>
+                            <label>Коментарии к заказу:</label><br />
+                    <textarea type="text" name="comment" value="{{ users_data.comment }}" class="text_order form-control order2_form " disabled>
+                    </textarea>
+                        </p>
+                        <p class="capcha_form2">
+                        </p>
+                        <p class="form_btn">
+                            <input type="submit" name="submit" value="Заказать" class="btn product-btn order2_form" disabled/>
+                        </p>
+                    </form>
+                    </label>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{%  endblock %}

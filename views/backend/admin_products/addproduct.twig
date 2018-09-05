@@ -1,0 +1,104 @@
+{% extends "backend/admin_base.twig" %}
+
+{% block content %}
+    <p>Новый товар</p>
+
+    <div>
+        {% for errors in errors %}
+        <div class="errors_div">
+            <p>{{ errors }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <div class="container_of_li_add_products container_of_li">
+            <div class="form_avtorization_bg"></div>
+            <form action="addProduct" enctype="multipart/form-data" method="post" class="admin_form">
+                <div class="form_av">
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Артикль:</label>
+                        <input type="text" name="article" value="{{ products_datas.article }}"  class="form-control"/>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Название:</label>
+                        <input type="text" name="title" value="{{ products_datas.title }}"  class="form-control"/>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Цена:</label>
+                        <input type="text" name="price" value="{{ products_datas.price }}"  class="form-control"/>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Бренд:</label>
+                        <input type="text" name="brand" value="{{ products_datas.brand }}"  class="form-control"/>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Описание:</label>
+                        <textarea type="text" name="description" rows="3" cols="23"  class="form-control">{{ products_datas.description }}</textarea>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Категория:</label>
+                        <select id="selectproductscat_1" name="productscat"  class="form-control">
+                            <option value="0">Выберите из списка</option>
+                            {%  for productscats in productscats %}
+                                <option value="{{ productscats.id }}">
+                                    {{ productscats.title }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Подкатегория:</label>
+                        <select id="selectproductsuncat_1" name="productsuncat"  class="form-control" disabled>
+                            <option value="0">Выберите из списка</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Хит:</label>
+                        <select id="is_new" name="is_new"  class="form-control">
+                            <option value="0">Нет</option>
+                            <option value="1">Да</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Рекомендуемый товар:</label>
+                        <select id="is_recomended" name="is_recomended"  class="form-control">
+                            <option value="0">Нет</option>
+                            <option value="1">Да</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <label>Изображение:</label>
+                        <input type="file" name="image" multiple="true"  class="form-control"/>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p class="clearfix">
+                        <input type="submit" name="submit" value="Добавить"  class="btn product-btn"/>
+                    </p>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

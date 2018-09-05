@@ -1,0 +1,27 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="list_of_hits">
+            <div class="content_bg"></div>
+
+                <H1>Активация</H1>
+                <div class="content-line"></div>
+
+                <div class="errors_div">
+                {{ message }}
+                </div>
+
+            {% if enter %}
+                <div class="cart_btn_order">
+                    <a href="{{ base_url }}account">Войти в личный кабинет</a>
+                </div>
+            {% endif %}
+
+            </div>
+        </div>
+
+
+{%  endblock %}

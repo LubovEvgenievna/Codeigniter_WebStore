@@ -1,0 +1,35 @@
+{% include "frontend/_parts/header.twig" %}
+<body>
+<div class="welcome_page admin_hidden">
+    <div class="welcome_page_bg"></div>
+    <div class="container">
+        <div class="col-sm-2 col-md-2"></div>
+        <div class="col-sm-8 col-md-8">
+            <div class="age-alert">
+                <div class="aa-text">
+                    <p>Внимание!</p><p>Для посещения сайта Вы должны подтвердить, что Вам есть 18 лет.</p>
+                </div>
+
+                <div class="aa-btns">
+                    <div class="aa-yes col-sm-5">
+                        <button type="button" class="product-btn btn add-to-cart">Мне есть 18 лет</button>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="aa-no col-sm-5">
+                        <button type="button" class="product-btn btn add-to-cart">Покинуть сайт</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="wrapper">
+    {% block content %}{% endblock %}
+</div>
+
+<div id="scrollup"><img alt="Прокрутить вверх" src="{{ base_url }}assets/images/work/up.png"></div>
+{% include "frontend/_parts/footer.twig" %}
+</body>
+</html>

@@ -1,0 +1,179 @@
+{% extends "backend/admin_base.twig" %}
+
+{% block content %}
+
+    <p>Управление заказами</p>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-condensed cart_table">
+                <tr>
+                    <th>Доставка</th>
+                    <th>Телефон</th>
+                    <th>Адрес</th>
+                    <th>Магазин</th>
+                    <th>Комментарий</th>
+                    <th>Товары</th>
+                    <th>Сумма</th>
+                    <th>Имя</th>
+                    <th>Статус</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+
+                {% for orders in orders %}
+                    <tr class="red_ord_{{ orders.id }}">
+
+                            {%  if orders.delivery == '1' %}
+                        <td><span class="glyphicon glyphicon-ok"></span></td>
+                            {% else %}
+                        <td></td>
+                            {% endif %}
+
+                        <td>{{ orders.phone |truncate(15)}}</td>
+                        <td>{{ orders.address |truncate(15)}}</td>
+                            {% for shop in shop %}
+                                {% if orders.shop_id == shop.id %}
+                        <td>{{ shop.title |truncate(15)}}</td>
+                                {% else %}
+                        <td> </td>
+                                {% endif %}
+                            {% endfor %}
+                        <td>{{ orders.comment}}</td>
+                        <td>
+                            {% for products in products %}
+                                {% if products.ord == orders.id %}
+
+                                    {% for prodabout in prodabout %}
+                                        {% if prodabout.id == products.id %}
+                                    <p>{{ prodabout.title |truncate(15)}}: {{ products.qty }}</p>
+                                        {%  endif %}
+                                    {%  endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if (total < 1290) and (orders.delivery == 1) %}
+                                {{ orders.total + 350 }}
+                            {% else %}
+                                {{ orders.total }}
+                            {% endif %}
+                        </td>
+                            {% for users in users %}
+                                {% if users.id == orders.id_users %}
+                        <td>
+                            <p>{{ users.name |truncate(15)}}</p>
+                            <p>{{ users.lastname |truncate(15)}}</p>
+                        </td>
+                                {% endif %}
+                            {% endfor %}
+                            {% for status in status %}
+                                {% if status.id == orders.status %}
+                        <td><div class="admin_ord_stat_{{ orders.id }}">{{ status.title |truncate(15)}}</div></td>
+                                {% endif %}
+                            {% endfor %}
+                        <td><button class="admin_btn_add btn" onclick="open_red_form({{ orders.id }})"><span class="glyphicon glyphicon-search"></span></button></td>
+                    </tr>
+
+                    <div class="popup_prod_red_form_{{ orders.id }} popup_prod_red_form">
+                        <div class="prod_red_form_bg"></div>
+                        <div class="prod_red_form">
+                            <div id="remove_popup_prod_red_form" onclick="close_red_form({{ orders.id }})"><span class="glyphicon glyphicon-remove"></span></div>
+                            <div class="clear"></div>
+                            <div class="red_stat">
+                                {% if orders.status == '1' %}
+                                    <p>
+                                        <label>Поменять статус: </label>
+                                        <button type="button" class="product-btn btn"  onClick="nextStatus('2', {{ orders.id }})">
+                                            Активен
+                                        </button>
+                                    </p>
+                                {% elseif orders.status == '2' %}
+                                    <p>
+                                        <label>Поменять статус: </label>
+                                        <button type="button" class="product-btn btn"  onClick="nextStatus('3', {{ orders.id }})">
+                                            Закрыт
+                                        </button>
+                                    </p>
+                                {% endif %}
+                                <p>
+                                    {% for status in status %}
+                                        {% if status.id == orders.status %}
+                                            {{ status.title }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                            <p>
+                                {%  if orders.delivery == '1' %}
+                                    <label>ДОСТАВКА!</label>
+                                {% else %}
+                                    <label>САМОВЫВОЗ!</label>
+                                {% endif %}
+                            </p>
+                            <p>
+                                {% for products in products %}
+                                {% if products.ord == orders.id %}
+
+                                    {% for prodabout in prodabout %}
+                                    {% if prodabout.id == products.id %}
+                                        {{ prodabout.title }}: {{ products.qty }}<br>
+                                    {%  endif %}
+                                    {%  endfor %}
+                                {% endif %}
+                                {% endfor %}
+                            </p>
+                            <p>
+                                {% if (total < 1290) and (orders.delivery == 1) %}
+                                    {{ orders.total + 350 }} руб.
+                                {% else %}
+                                    {{ orders.total }} руб.
+                                {% endif %}
+                            </p>
+                            <p>
+                                <label>Телефон: </label>
+                                {{ orders.phone }}
+                            </p>
+                            <p>
+                                <label>Кому: </label>
+                                {% for users in users %}
+                                    {% if users.id == orders.id_users %}
+                                        {{ users.name }}
+                                        {{ users.lastname }}
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                                {% if orders.address %}
+                            <p>
+                                <label>Адрес: </label>
+                                {{ orders.address }}
+                            </p>
+                                {% endif %}
+                                {% for shop in shop %}
+                                    {% if orders.shop_id == shop.id %}
+                            <p>
+                                <label>Магазин: </label>
+                                        {{ shop.title }}
+                            </p>
+                                    {% endif %}
+                                {% endfor %}
+                            <p>
+                                <label>Комментарий к заказу: </label>
+                                {{ orders.comment}}
+                            </p>
+
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+
+            </table>
+
+
+        </div>
+
+        {{ links | raw }}
+
+{% endblock %}

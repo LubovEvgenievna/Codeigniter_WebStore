@@ -1,0 +1,86 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+    <div class="container">
+    <div class="add_message" id="add_message">Товар добавлен в корзину</div>
+    <div class="list_of_hits">
+        <div class="content_bg"></div>
+        <H1>Каталог</H1>
+        <div class="content-line"></div>
+    <div class="row">
+
+        <div class="menu2 col-xs-12 col-sm-6 col-md-3" id="menu2">
+
+            <button type="button" class="menu2-btn btn btn-block" onClick="showProductList('All')">
+                Все категории товара
+            </button>
+                {% for category in category %}
+                        <div>
+
+                            <button type="button" class="menu2-btn btn btn-block" onClick="showProductList('Cat', '{{ category.id }}')">
+                                {{ category.title }}
+                            </button>
+
+                            <button type="button" class="menu2-sub-btn" onClick="shiftSubDiv({{ category.id }})">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+
+
+                        <ul id="subDiv{{ category.id }}" class="subDivn">
+                        {% for uncategory in uncategory %}
+                            {% if uncategory.category_id == category.id %}
+                                    <li><button type="button" class="menu2-subDiv-btn btn btn-block" onClick="showProductList('Uncat', {{ uncategory.id }})">
+                                            {{ uncategory.title }}
+                                        </button>
+                                    </li>
+                            {% endif %}
+                        {%  endfor %}
+                        </ul>
+
+                        </div>
+                {%  endfor %}
+            <div class="clear"></div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-9" id="catalogue">
+            {% for product in product %}
+                <div class="col-xs-6 col-sm-6 col-md-4 products">
+                    <div class="product">
+                        <div class="product_img">
+                            <a href="{{ base_url }}product/getProd/{{ product.id }}" target="_blank">
+                                <img src="{{ base_url }}assets/images/product/{{ product.image }}" class="product_img_inside">
+                            </a>
+                            {% if product.is_new == 1 %}
+                                <div>
+                                    <div class="hit_product">
+                                        <img src="{{ base_url }}assets/images/work/hit.png" class="hit_product_inside">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="product_body">
+                            <a href="{{ base_url }}product/getProd/{{ product.id }}" class="product_title" target="_blank">
+                                {{ product.title }}
+                            </a>
+                            <div class="product_price">
+                                {{ product.price }} руб.
+                            </div>
+                            <button type="button" class="product-btn btn"  onClick="add_to_cart({{ product.id }})">
+                                В корзину
+                            </button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="clear"></div>
+
+        <div id="moreProd"><button type="button" class="product-btn btn btn_more_prod" onClick="showProductList('{{ cat }}',{{ cat_id }},6)">Еще</button></div>
+
+        <div class="clear"></div>
+
+    </div>
+        </div>
+    </div>
+{%  endblock %}

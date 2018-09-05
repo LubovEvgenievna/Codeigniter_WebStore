@@ -1,0 +1,188 @@
+{% extends "backend/admin_base.twig" %}
+
+{% block content %}
+    <div class="admin_addproduct">
+        <div>Управление товарами</div>
+        <div class="admin_btn cart_btn_order">
+            <a href="{{ base_url }}adminproductsadd/addproduct">
+                Добавить товар
+            </a>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-condensed cart_table">
+                <tr>
+                    <th>Артикль</th>
+                    <th>Наименование</th>
+                    <th>Цена</th>
+                    <th>Картинка</th>
+                    <th>Бренд</th>
+                    <th>Категория</th>
+                    <th>Подкатегория</th>
+                    <th>Описание</th>
+                    <th>Хит</th>
+                    <th>Рекомендации</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+
+            {% for products in products %}
+                <tr class="red_prod_{{  products.id |truncate(15) }}">
+                    <td>{{ products.article |truncate(15)}}</td>
+                    <td>{{ products.title |truncate(15)}}</td>
+                    <td>{{ products.price |truncate(15)}}</td>
+                    <td>{{ products.image |truncate(15)}}</td>
+                    <td>{{ products.brand |truncate(15)}}</td>
+                    {% for productscats in productscats %}
+                        {% if productscats.id == products.category_id %}
+                        <td>{{ productscats.title |truncate(15)}}</td>
+                        {% endif %}
+                    {% endfor %}
+                    {% if products.uncategory_id == false %}
+                        <td> </td>
+                    {% else %}
+                        {% for productsuncats in productsuncats %}
+                            {% if productsuncats.id == products.uncategory_id %}
+                                <td>{{ productsuncats.title |truncate(15)}}</td>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <td>{{ products.description |truncate(15)}}</td>
+                    {% if products.is_new %}
+                        <td> Да </td>
+                    {% else %}
+                        <td> Нет </td>
+                    {% endif %}
+                    {% if products.is_recomended %}
+                        <td> Да </td>
+                    {% else %}
+                        <td> Нет </td>
+                    {% endif %}
+                    <td><button id="popup_prod_red_btn" class="admin_btn_add btn" onclick="open_red_form({{ products.id }})"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    <td><a href="{{ base_url }}adminproducts/removeproduct/{{  products.id  }}">Удалить</a></td>
+                </tr>
+                <div class="popup_prod_red_form_{{ products.id }} popup_prod_red_form">
+                    <div class="prod_red_form_bg"></div>
+                    <div class="prod_red_form">
+                        <div id="remove_popup_prod_red_form" onclick="close_red_form({{ products.id }})"><span class="glyphicon glyphicon-remove"></span></div>
+                        <div class="clear"></div>
+                        <form action="/adminproducts/safeprod" enctype="multipart/form-data" method="post" id="red_prod_form" class="admin_form">
+                            <input type="hidden" name="id" value='{{  products.id  }}' class="form-control"/>
+
+                            <div class="form-group">
+                                <label>Артикль:</label>
+                            <input type="text" name="article" value="{{ products.article }}" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Название:</label>
+                            <input type="text" name="title" value="{{ products.title }}" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Цена:</label>
+                            <input type="text" name="price" value="{{ products.price }}" class="form-control"/>
+                            </div>
+
+                            <div class="form-group">
+                                <p class="clearfix">
+                                    <label>Изображение:</label>
+                                    <input type="file"
+                                           name="image"
+                                           class="admin_load_img"
+                                           multiple
+                                           data-jpreview-container="#preview-container">
+
+                                    <div id="preview-container"
+                                         class="jpreview-container">
+                                    </div>
+                                </p>
+                            </div>
+
+                            <div class="admin_prod_img">
+                                <img id="img-preview" src="{{ base_url }}assets/images/product/{{ products.image }}" class="admin_prod_img_inside">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Бренд:</label>
+                            <input type="text" name="brand" value="{{ products.brand }}" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Категория:</label>
+                            <select id="selectproductscat_{{ products.id }}" name="productscat" class="form-control">
+                                {%  for productscats in productscats %}
+                                    {%  if productscats.id == products.category_id %}
+                                        <option value="{{ products.category_id }}">{{ productscats.title }}</option>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {%  for productscats in productscats %}
+                                    <option value="{{ productscats.id }}">
+                                        {{ productscats.title }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Подкатегория:</label>
+                            <select id="selectproductsuncat_{{ products.id }}" name="productsuncat" disabled class="form-control">
+                                {%  for productsuncats in productsuncats %}
+                                    {%  if productsuncats.id == products.uncategory_id %}
+                                        <option value="{{ products.category_id }}">{{ productsuncats.title }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Описание:</label>
+                            <textarea type="text" name="description" rows="3" cols="23" class="form-control">{{ products.description }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Хит:</label>
+                            <select id="is_new" name="is_new" class="form-control">
+                                {% if products.is_new  == 1 %}
+                                    <option value="1">Да</option>
+                                    <option value="0">Нет</option>
+                                {% else %}
+                                    <option value="0">Нет</option>
+                                    <option value="1">Да</option>
+                                {% endif %}
+                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Рекомендуемый товар:</label>
+                            <select id="is_recomended" name="is_recomended" class="form-control">
+                                {% if products.is_recomended  == 1 %}
+                                    <option value="1">Да</option>
+                                    <option value="0">Нет</option>
+                                {% else %}
+                                    <option value="0">Нет</option>
+                                    <option value="1">Да</option>
+                                {% endif %}
+                            </select>
+                            </div>
+                            <div class="form-group">
+                            <button class="admin_btn_add btn" type="submit" name="submit" value="Сохранить">
+                                Сохранить
+                            </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+        </table>
+
+
+    </div>
+
+
+
+
+    {{ links | raw }}
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "backend/admin_base.twig" %}
+
+{% block content %}
+
+    <p>Редактор</p>
+
+    <ul>
+        <table class="admin_cat_table table table-striped table-hover">
+            <tr>
+                <td>Главная</td>
+                <td><a href="{{ base_url }}adminpages/redGeneral"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td></td>
+            </tr>
+            {% for pages in pages %}
+            <tr>
+                <td>{{ pages.title }}</td>
+                <td><a href="{{ base_url }}adminpages/red/{{ pages.name }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td><a href="{{ base_url }}adminpages/removePage/{{  pages.id  }}">Удалить</a></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><button class="admin_btn_add btn" onClick="showAddCat()"><span class="glyphicon glyphicon-plus"> страница</span></button></td>
+            </tr>
+            <tr id="add_page_form"></tr>
+        </table>
+    </ul>
+
+
+{% endblock %}

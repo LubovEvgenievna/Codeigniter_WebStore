@@ -1,0 +1,53 @@
+{% extends "frontend/account/account_base.twig" %}
+
+{% block accontent %}
+
+<p>Ваши заказы</p>
+
+    <div class="table-responsive">
+            <table class="cart_table table table-striped table-hover">
+
+                {% for myorders in myorders %}
+                    {% if(myorders.id_users == id_user) %}
+                    <tr>
+                        <th colspan="3">Заказ номер {{ myorders.id }}</th>
+
+                        <th>{{ myorders.date|date("d/m/Y") }}</th>
+                    </tr>
+                        <tr>
+                            <th>Наименование товара</th>
+                            <th>Цена за шт.</th>
+                            <th>Количество</th>
+                            <th>Сумма</th>
+                        </tr>
+                        {% for products in products %}
+                            {% if(myorders.id == products.ord) %}
+                                <tr>
+                                {% for prodabout in prodabout %}
+                                    {% if products.id == prodabout.id %}
+                                <td>{{ prodabout.title }}</td>
+                                <td>{{ prodabout.price }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                                <td>{{ products.qty }}</td>
+                                <td></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>{{ myorders.total }} руб.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+
+                    <tr>
+                        <td colspan="4"> </td>
+                    </tr>
+            </table>
+    </div>
+
+{% endblock %}

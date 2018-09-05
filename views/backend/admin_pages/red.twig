@@ -1,0 +1,30 @@
+{% extends "backend/admin_base.twig" %}
+
+{% block content %}
+
+    <p>{{ about.title }}</p><br />
+
+    {% if errors %}
+        <div class="errors_div">
+            <p>{{ errors }}</p>
+        </div>
+    {% endif %}
+
+
+    <form method="post">
+        <p>Контент</p><br />
+        <textarea id="editor" name="text" cols="80" rows="20">
+             {{ about.text }}
+        </textarea>
+        <br /><br />
+        <p>SEO</p><br />
+        <p>Description (краткое описание страницы. используйте ключевые слова и завлекалочки для покупателей):</p><br />
+        <textarea id="editor" name="description" cols="80" rows=5">
+             {{ about.description }}
+        </textarea>
+        <br />
+        <input type="submit" name="submit" value="Обновить" />
+    </form>
+
+
+{% endblock %}

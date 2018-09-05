@@ -1,0 +1,24 @@
+{% extends "frontend/base.twig" %}
+{%  block content %}
+    <div class="container">
+    <div class="list_of_hits">
+        <div class="content_bg"></div>
+        <H1>Корзина</H1>
+        <div class="content-line"></div>
+        {{ cart_form | raw }}
+        <div class="clear"></div>
+
+        <div class="cart_btn">
+            <a href="{{ base_url }}cart/clear_cart">
+                Очистить корзину
+            </a>
+        </div>
+        <div class="clear"></div>
+        <div class="cart_btn_order">
+            <a href="{{ base_url }}cart/startorder">
+                Оформить заказ
+            </a>
+        </div>
+    </div>
+    </div>
+{%  endblock %}

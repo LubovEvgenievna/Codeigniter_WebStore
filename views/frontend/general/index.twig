@@ -1,0 +1,116 @@
+{% extends "frontend/base.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="hidden-xs col-sm-12 col-md-12 slider">
+                <div id="block-for-slider">
+                    <div id="viewport">
+                        <ul id="slidewrapper">
+                            {% for sliders in sliders %}
+                            <li class="slide"><img src="{{ base_url }}assets/images/slider/{{ sliders.img }}" alt="{{ sliders.id }}" class="slide-img"></li>
+                            {% endfor %}
+                        </ul>
+
+                        <div id="prev-next-btns">
+                            <div id="prev-btn"></div>
+                            <div id="next-btn"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 menu3 menu_3_hover">
+                        <a href="{{ base_url }}catalog/showProduct/1">
+                        <img src="{{ base_url }}assets/images/menu/menu1.png" alt="menu1" class="menu3_img">
+                        </a>
+                        <div class="menu3_text">
+                            <p class="menu_3_up">Категория 1</p>
+                            <p class="menu_3_low">Описание описание описание</p>
+                            <a href="{{ base_url }}catalog/showProduct/1" class="btn_menu3">Каталог</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12 menu3 menu_3_hover">
+                        <a href="{{ base_url }}catalog/showProduct/3">
+                        <img src="{{ base_url }}assets/images/menu/menu3.png" alt="menu3" class="img-responsive">
+                        </a>
+                        <div class="menu3_text">
+                            <p class="menu_3_up">Категория 2</p>
+                            <p class="menu_3_low">Описание описание описание</p>
+                            <a href="{{ base_url }}catalog/showProduct/3" class="btn_menu3">Смотреть</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 menu3 menu_3_hover">
+                        <a href="{{ base_url }}catalog/showProduct/2">
+                        <img src="{{ base_url }}assets/images/menu/menu2.png" alt="menu2" class="img-responsive">
+                        </a>
+                        <div class="menu3_text">
+                            <p class="menu_3_up">Категория 3</p>
+                            <p class="menu_3_low">Описание описание описание</p>
+                            <a href="{{ base_url }}catalog/showProduct/2" class="btn_menu3">Нажать</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12 menu3 menu_3_hover">
+                        <a href="{{ base_url }}catalog/showProduct/4">
+                        <img src="{{ base_url }}assets/images/menu/menu4.png" alt="menu4" class="img-responsive">
+                        </a>
+                        <div class="menu3_text">
+                            <p class="menu_3_up">Категория 4</p>
+                            <p class="menu_3_low">Описание описание описание
+                            </p>
+                            <a href="{{ base_url }}catalog/showProduct/4" class="btn_menu3">Выбрать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+
+            <div class="list_of_hits">
+            <div class="content_bg"></div>
+            <H1>Хиты продаж</H1>
+            <div class="content-line"></div>
+
+            {% for product in product %}
+
+                {% if product.is_new == 1 %}
+                <div class="col-xs-12 col-sm-6 col-md-3 products">
+                    <div class="product">
+                        <div class="product_img">
+                            <a href="{{ base_url }}product/getProd/{{ product.id }}" target="_blank">
+                                <img src="{{ base_url }}assets/images/product/{{ product.image }}" class="product_img_inside">
+                            </a>
+                                <div class="hit_product">
+                                    <img src="{{ base_url }}assets/images/work/hit.png" class="hit_product_inside">
+                                </div>
+                        </div>
+                        <div class="product_body">
+                            <a href="{{ base_url }}product/getProd/{{ product.id }}" class="product_title" target="_blank">
+                                {{ product.title }}
+                            </a>
+                            <div class="product_price">
+                                {{ product.price }} руб.
+                            </div>
+                            <button type="button" class="product-btn btn add-to-cart"  data-id={{ product.id }}>
+                                <a href="{{ base_url }}cart/addAjax/{{ product.id }}">В корзину</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %}
+            {% endfor %}
+
+            <div class="clear"></div>
+            </div>
+            </div>
+        </div>
+
+{%  endblock %}

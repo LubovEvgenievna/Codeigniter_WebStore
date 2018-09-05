@@ -1,0 +1,64 @@
+{% extends "backend/admin_base.twig" %}
+
+{% block content %}
+
+    <p>Управление категориями</p>
+
+        <div class="table-responsive">
+            <table class="cart_table table table-striped table-hover">
+                <tr>
+                    <th>Название</th>
+                    <th>Порядковый номер</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </table>
+            <ul>
+                {% for category in category %}
+                    <li >
+                        <div id="red_cat_table_{{  category.id  }}">
+                            <table class="admin_cat_table table table-striped table-hover">
+                                <tr class="red_cat_{{  category.id  }}">
+                                    <td>{{ category.title }}</td>
+                                    <td>{{ category.sort_order }}</td>
+                                    <td><button class="admin_btn_add btn" onClick="showRedCat({{ category.id }})"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                                    <td><a href="{{ base_url }}admincategory/removecategory/{{  category.id  }}">Удалить</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <ul>
+                            {% for uncategory in uncategory %}
+                                {% for key, value in uncategory %}
+                                    {% if key == 'category_id' and value == category.id %}
+                                        <li id="red_uncat_table_{{  uncategory.id  }}">
+                                            <table class="admin_cat_table table table-hover">
+                                                <tr class="red_uncat_{{  uncategory.id  }}">
+                                                    <td>{{ uncategory.title }}</td>
+                                                    <td>{{ uncategory.sort_order }}</td>
+                                                    <td><button class="admin_btn_add btn" onClick="showRedUncat({{ uncategory.id }})"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                                                    <td><a href="{{ base_url }}admincategory/removeuncategory/{{  uncategory.id  }}">Удалить</a></td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    {% endif %}
+                                {%  endfor %}
+                            {%  endfor %}
+                            <table class="admin_cat_table table table-hover">
+                                <tr>
+                                    <td><button class="admin_btn_add btn" onClick="showAddUncat({{  category.id  }})"><span class="glyphicon glyphicon-plus"> подкатегория</span></button></td>
+                                </tr>
+                                <tr id="add_uncat_form_{{  category.id  }}"></tr>
+                            </table>
+                        </ul>
+                    </li>
+                {%  endfor %}
+                <table class="admin_cat_table table table-striped table-hover">
+                    <tr>
+                        <td><button class="admin_btn_add btn" onClick="showAddCat()"><span class="glyphicon glyphicon-plus"> категория</span></button></td>
+                    </tr>
+                    <tr id="add_cat_form"></tr>
+                </table>
+            </ul>
+        </div>
+
+{% endblock %}
